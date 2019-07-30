@@ -24,7 +24,7 @@ public class ControlerSujet {
 	@Autowired
 	ServiceUser serviceUser;
 	
-	@RequestMapping("/add/{idUtil}/{etatVote}")
+	@RequestMapping(value="/add/{idUtil}/{etatVote}",method=RequestMethod.POST)
 	public void  addSujet(@PathVariable("idUtil") int id, @RequestBody Sujet sujet,@PathVariable("etatVote") boolean etat) {
 		Utilisateur util= serviceUser.getById(id);
 		sujet.setUtilisateur(util);
@@ -35,20 +35,19 @@ public class ControlerSujet {
 //		serviceVote.AddVote(vote);
 	}
 	
-	@RequestMapping("/findAll")
+	@RequestMapping(value="/findAll",method=RequestMethod.GET)
 	public List<Sujet> findAll(){
 		return serviceSujet.find();
 	}
 	
-	@RequestMapping("/findbyId/{id}")
+	@RequestMapping(value="/findbyId/{id}",method=RequestMethod.GET)
 	public Sujet getById (@PathVariable("id") int id){
 	
 		return serviceSujet.getById(id);
 	}
 	
-	@RequestMapping("/findbyId/{idUtil}")
-
-	public void update(@RequestBody Sujet sujet,@PathVariable("idUtil") int id) {
+	@RequestMapping(value="/findbyId/{idUtil}",method=RequestMethod.PUT)
+    public void update(@RequestBody Sujet sujet,@PathVariable("idUtil") int id) {
 		Utilisateur utl= serviceUser.getById(id);
 		sujet.setUtilisateur(utl);
 		serviceSujet.AddSujet(sujet);

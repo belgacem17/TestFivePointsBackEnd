@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FivePoints.Test.Entities.Sujet;
@@ -23,7 +24,7 @@ public class ControllerVote {
 	@Autowired
 	ServiceSujet serviceSujet; 
 	
-	@RequestMapping("/add/{idSujet}")
+	@RequestMapping(value="/add/{idSujet}",method=RequestMethod.POST)
 	public void  addVote(@PathVariable("idSujet") int id, @RequestBody Vote vote) {
 		Sujet sujet= serviceSujet.getById(id);
 		vote.setSujet(sujet);
@@ -32,7 +33,7 @@ public class ControllerVote {
 		serviceVote.AddVote(vote);
 	}
 	
-	@RequestMapping("/findAll")
+	@RequestMapping(value="/findAll",method=RequestMethod.GET)
 	public List<Vote> findAll(){
 		return serviceVote.find();
 	}

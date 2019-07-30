@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FivePoints.Test.Entities.Utilisateur;
@@ -18,7 +19,7 @@ public class ControleUser {
 	@Autowired
 	ServiceUser serviceUser;
 
-	@RequestMapping("/login/{login}/{mdp}")
+	@RequestMapping(value="/login/{login}/{mdp}",method=RequestMethod.GET)
 	public boolean login(@PathVariable("login") String login, @PathVariable("mdp") String passwd) {
 
 		if (serviceUser.login(login, passwd) == true) {
@@ -28,7 +29,7 @@ public class ControleUser {
 		return false;
 	}
 
-	@RequestMapping("/add")
+	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String  addUtlisateur(@RequestBody Utilisateur util) {
 		if (serviceUser.login(util.getLogin(), util.getPasswd()) == true) {
 			 
@@ -39,17 +40,17 @@ public class ControleUser {
 
 	}
 	
-	@RequestMapping("/findAll")
+	@RequestMapping(value="/findAll",method=RequestMethod.GET)
 	public List<Utilisateur> findAll(){
 		return serviceUser.find();
 	}
 	
-	@RequestMapping("/findbyId/{id}")
+	@RequestMapping(value="/findbyId/{id}",method=RequestMethod.GET)
 	public Utilisateur getById (@PathVariable("id") int id){
 	
 		return serviceUser.getById(id);
 	}
-	@RequestMapping("/update")
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
 	public void update (@RequestBody Utilisateur util){
 	
 		 serviceUser.update(util);
